@@ -1,14 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
-import ReactDOM from 'react-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import {Container, Card, CardHeader, CardContent, Avatar, IconButton, Typography, Button, TextField, Box} from '@material-ui/core';
+import {Container, Card, Typography, CardHeader, CardContent, Avatar, Button, TextField, Box} from '@material-ui/core';
 import { red } from '@material-ui/core/colors';
 import naner from './../naner.png';
 
 import {utils} from 'ethers';
 
-import {BigNumberish, BigNumber} from 'ethers';
-import { MonkeBonfireContext, MonkeContext, CurrentAddressContext, ERC20Context } from "../hardhat/SymfoniContext";
+import { MonkeBonfireContext, MonkeContext, CurrentAddressContext } from "../hardhat/SymfoniContext";
 
 interface Props { }
 
@@ -50,10 +48,11 @@ export const MonkeBonfire: React.FC<Props> = () => {
     const bonfire = useContext(MonkeBonfireContext)
     const monke = useContext(MonkeContext)
     
+    // eslint-disable-next-line
     const [currentAddress, setCurrentAddress] = useContext(CurrentAddressContext)
     const [currentMonkeBalance, setCurrentMonkeBalance] = useState("")
-    const [currentNanerBalance, setCurrentNanerBalance] = useState("")
-    const [currentMonkeAllowance, setCurrentMonkeAllowance] = useState("");
+    // const [currentNanerBalance, setCurrentNanerBalance] = useState("")
+    // const [currentMonkeAllowance, setCurrentMonkeAllowance] = useState("");
 
     const [isApproved, setIsApproved] = useState(false);
 
@@ -68,10 +67,10 @@ export const MonkeBonfire: React.FC<Props> = () => {
             console.log("bonfire is deployed at ", bonfire.instance.address)
             setCurrentMonkeBalance(utils.formatEther(await monke.instance.balanceOf(currentAddress)))
             setIsApproved((await monke.instance.allowance(currentAddress, bonfire.instance.address)).gt("0"))
-            setCurrentMonkeAllowance(await utils.formatEther(await monke.instance.allowance(currentAddress, bonfire.instance.address)))
+            // setCurrentMonkeAllowance(await utils.formatEther(await monke.instance.allowance(currentAddress, bonfire.instance.address)))
         };
         doAsync();
-    }, [bonfire])
+    }, [bonfire, monke, currentAddress])
 
     const handleApproveSpending = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault()
