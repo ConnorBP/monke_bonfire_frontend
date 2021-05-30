@@ -121,7 +121,7 @@ export const MonkeBonfire: React.FC<Props> = () => {
                                 Monke for Naner Burn Contract
                             </Typography>
                         }
-                        subheader="Ratio: 1 Naner for ever 1000 Monke"
+                        subheader="Ratio: 1 Naner for every 1000 Monke"
                     />
                         <CardContent>
                             <p>
